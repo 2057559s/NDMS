@@ -29,8 +29,43 @@
 
 </a>
 
+<body>
+
+<form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+    <input type=submit class="btn btn-primary" value="View Components" onclick="loadFile();">
+
+</form>
+</body>
+
+<div id="id01"></div>
+
+<script>
+    //myFunction('{"result":true,"count":1}')
+    function myFunction(file) {
+        var arr = JSON.parse(file);
+        var i;
+
+        var out = "<table>";
+
+        for(i = 0; i < arr.length; i++) {
+            out += "<tr><td>" +
+                    arr[i].Name +
+                    "</td><td>" +
+                    arr[i].City +
+                    "</td><td>" +
+                    arr[i].Country +
+                    "</td></tr>";
+        }
+        out += "</table>";
+        document.getElementById("id01").innerHTML = out;
+    }
 
 
+
+
+</script>
+
+<
 
 
 <style>
@@ -39,52 +74,3 @@
 
 </style>
 
-
-<body>
-
-<form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
-
-    <fieldset>
-        <h5>Choose file to view components</h5>
-        <input type='file' id='fileinput'>
-        <input type=submit class="btn btn-primary" value="View Components" onclick='loadFile();'>
-    </fieldset>
-</form>
-
-
-<script type="text/javascript">
-
-    function loadFile() {
-        var input, file, fr;
-
-        if (typeof window.FileReader !== 'function') {
-            alert("The file API isn't supported on this browser yet.");
-            return;
-        }
-
-        input = document.getElementById('fileinput');
-        if (!input) {
-            alert("Um, couldn't find the fileinput element.");
-        }
-        else if (!input.files) {
-            alert("This browser doesn't seem to support the `files` property of file inputs.");
-        }
-        else if (!input.files[0]) {
-            alert("Please select a file before clicking 'Load'");
-        }
-        else {
-            file = input.files[0];
-            fr = new FileReader();
-            fr.onload = receivedText;
-            fr.readAsText(file);
-        }
-
-        function receivedText(e) {
-            lines = e.target.result;
-            var newArr = JSON.parse(lines);
-            console.log(newArr);
-        }
-    }
-</script>
-
-</body>
